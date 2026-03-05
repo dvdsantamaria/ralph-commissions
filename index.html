@@ -1,421 +1,1495 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ralph Kerle | Commission a One-Off Original Artwork</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ralph Kerle | Commission a One-of-a-Kind Original Artwork</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --near-black: #111111;
+    --charcoal: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-light: #e2c97e;
+    --gold-muted: #8a6e32;
+    --white: #f5f2ed;
+    --white-dim: rgba(245,242,237,0.6);
+    --white-faint: rgba(245,242,237,0.2);
+    --border: rgba(201,168,76,0.2);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Raleway', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: auto; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--gold);
+  }
+
+  .nav-cta {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--gold-muted);
+    padding: 10px 22px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 64px 64px 64px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-byline {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white-dim);
+    margin-bottom: 32px;
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 32px;
+    padding-left: 0;
+  }
+
+  .hero-meta-item {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-meta-item::before {
+    content: '—';
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gold);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    text-decoration: none;
+    border: 1px solid var(--white-faint);
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--white-dim);
+    color: var(--white);
+  }
+
+  .hero-trust-bar {
+    margin-top: 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .trust-item {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+  }
+
+  .trust-item span {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a2a3a 0%, #0d1f2d 40%, #0a1520 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Animated water-light effect as placeholder */
+  .water-light {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(100,160,200,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 60%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(60,120,180,0.12) 0%, transparent 40%);
+    animation: waterShimmer 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes waterShimmer {
+    0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.05) rotate(0.5deg); }
+    100% { opacity: 0.7; transform: scale(0.98) rotate(-0.5deg); }
+  }
+
+  .hero-image-label {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    background: rgba(10,10,10,0.6);
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+  }
+
+  .hero-image-note {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px;
+    gap: 12px;
+  }
+
+  .hero-image-note p {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(245,242,237,0.25);
+  }
+
+  .hero-image-note small {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.3);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 6px 14px;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 120px 64px;
+  }
+
+  .section-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .section-body {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--white-dim);
+    max-width: 600px;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials {
+    background: var(--near-black);
+    padding: 80px 64px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 16px;
+  }
+
+  .testimonial {
+    padding: 40px 32px;
+    border: 1px solid var(--border);
+    position: relative;
+    background: rgba(201,168,76,0.02);
+    transition: border-color 0.3s ease;
+  }
+
+  .testimonial:hover {
+    border-color: rgba(201,168,76,0.4);
+  }
+
+  .testimonial::before {
+    content: '\201C';
+    font-family: var(--serif);
+    font-size: 5rem;
+    line-height: 0;
+    color: var(--gold);
+    opacity: 0.3;
+    position: absolute;
+    top: 32px;
+    left: 24px;
+  }
+
+  .testimonial-quote {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--white);
+    margin-bottom: 24px;
+    padding-top: 24px;
+  }
+
+  .testimonial-attribution {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .testimonial-context {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--white-dim);
+    margin-top: 4px;
+  }
+
+  /* ─── ABOUT / CREDENTIALS ─── */
+  .about {
+    background: var(--charcoal);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-credentials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  .credential-item {
+    background: var(--charcoal);
+    padding: 24px;
+  }
+
+  .credential-number {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .credential-label {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+  }
+
+  .about-image-placeholder {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #1a2530 0%, #0d1820 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-image-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 40% 50%, rgba(100,160,200,0.1) 0%, transparent 70%);
+    animation: waterShimmer 10s ease-in-out infinite alternate;
+  }
+
+  .about-image-note {
+    text-align: center;
+    z-index: 1;
+  }
+
+  .about-image-note p {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(245,242,237,0.2);
+    margin-bottom: 12px;
+  }
+
+  .about-image-note small {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.3);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 6px 12px;
+    display: inline-block;
+  }
+
+  /* ─── PROCESS ─── */
+  .process {
+    background: var(--black);
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .process-step {
+    background: var(--near-black);
+    padding: 40px 24px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .process-step:hover {
+    background: var(--charcoal);
+  }
+
+  .step-number {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .step-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+
+  .step-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .step-desc {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--white-dim);
+  }
+
+  .step-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1a2530 0%, #0d1820 100%);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-image-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(100,160,200,0.08) 0%, transparent 70%);
+  }
+
+  .step-image-note {
+    font-family: var(--sans);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.25);
+    text-align: center;
+    padding: 8px;
+    z-index: 1;
+    position: relative;
+  }
+
+  /* ─── CONSULT INCLUDES ─── */
+  .consult-includes {
+    background: var(--near-black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .consult-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .consult-tile {
+    background: var(--near-black);
+    padding: 28px 24px;
+    transition: background 0.3s ease;
+    cursor: default;
+  }
+
+  .consult-tile:hover {
+    background: rgba(201,168,76,0.04);
+  }
+
+  .tile-icon {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .tile-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .tile-desc {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--white-dim);
+  }
+
+  .consult-right .turnaround {
+    margin-top: 48px;
+    padding: 32px;
+    border: 1px solid var(--gold-muted);
+    background: rgba(201,168,76,0.03);
+    text-align: center;
+  }
+
+  .turnaround-number {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .turnaround-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    margin-top: 8px;
+  }
+
+  /* ─── INSTALLATIONS ─── */
+  .installations {
+    background: var(--charcoal);
+  }
+
+  .installations-note {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 48px;
+    opacity: 0.8;
+  }
+
+  .installations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .install-item {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1a2530 0%, #0d1820 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .install-item:hover {
+    border-color: var(--gold-muted);
+  }
+
+  .install-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .install-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .install-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+
+  .install-item:hover .install-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .install-overlay .title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .install-overlay .location {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .install-label {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,242,237,0.3);
+    background: rgba(10,10,10,0.6);
+    padding: 6px 10px;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+
+  /* ─── INVESTMENT ─── */
+  .investment {
+    background: var(--black);
+    text-align: center;
+  }
+
+  .investment .section-title {
+    margin-bottom: 8px;
+  }
+
+  .investment-range {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--gold);
+    margin: 32px 0 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .investment-sub {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    margin-bottom: 48px;
+  }
+
+  .investment-explainer {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--white-dim);
+    max-width: 560px;
+    margin: 0 auto 64px;
+    line-height: 1.7;
+  }
+
+  .investment-cta {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* ─── BOOKING FORM ─── */
+  .booking {
+    background: var(--near-black);
+    border-top: 1px solid var(--border);
+  }
+
+  .booking-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .booking-inner .section-eyebrow {
+    justify-content: center;
+  }
+
+  .booking-inner .section-eyebrow::before {
+    display: none;
+  }
+
+  .booking-inner .section-title {
+    margin-bottom: 16px;
+  }
+
+  .booking-inner .section-body {
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 1px;
+  }
+
+  .form-field {
+    background: var(--near-black);
+    padding: 0;
+  }
+
+  .form-field label {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 18px 20px 4px;
+  }
+
+  .form-field select,
+  .form-field input {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--white);
+    padding: 4px 20px 18px;
+    cursor: pointer;
+    appearance: none;
+  }
+
+  .form-field select option {
+    background: var(--charcoal);
+    color: var(--white);
+  }
+
+  .form-full {
+    grid-column: 1 / -1;
+  }
+
+  .btn-form {
+    width: 100%;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 22px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 1px;
+  }
+
+  .btn-form:hover {
+    background: var(--gold-light);
+  }
+
+  .form-assurance {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--white-dim);
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    padding: 64px 64px 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-logo-img {
+    max-width: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--white-dim);
+    line-height: 1.6;
+    max-width: 260px;
+  }
+
+  .footer-collections {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-col-label {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .footer-col-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+  }
+
+  .footer-col-links a {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--white-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    letter-spacing: 0.03em;
+  }
+
+  .footer-col-links a:hover {
+    color: var(--gold);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-copy {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,242,237,0.3);
+  }
+
+  .footer-contact-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-contact-line a {
+    font-family: var(--sans);
+    color: var(--white-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-contact-line a:hover {
+    color: var(--gold);
+  }
+
+  .contact-separator {
+    color: var(--white-dim);
+    opacity: 0.5;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero-headline { animation-delay: 0.25s; }
+  .hero-byline { animation-delay: 0.4s; }
+  .hero-meta { animation-delay: 0.5s; }
+  .hero-actions { animation-delay: 0.6s; }
+  .hero-trust-bar { animation-delay: 0.75s; }
+
+  /* ─── COPY ANNOTATION BADGES ─── */
+  .copy-note {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+    font-family: var(--sans);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    margin-left: 8px;
+    vertical-align: middle;
+    font-style: normal;
+  }
+</style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <span class="eyebrow">Custom-Sized for Your Space</span>
-                    <h1>Commission a One-Off Original Artwork</h1>
-                    <p class="hero-subtitle">Commissions AUD $5,000 – $25,000<br>Complimentary on-site consult Sydney-wide. 21-day turnaround from brief approval.</p>
-                    <div class="hero-ctas">
-                        <a href="#book" class="btn btn-primary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            Book a Free On-Site Consult
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </a>
-                        <a href="#installations" class="btn btn-outline">View Installations</a>
-                    </div>
-                    <div class="trust-badges">
-                        <span class="eyebrow" style="margin-bottom:0;">Custom Sizing · Mockups Provided · One-Off Originals · Sydney-Wide</span>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="images/main.jpg" alt="Ralph Kerle Abstract Artwork">
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <p class="quote">"A perfect fit for our space — truly transformative!"</p>
-                    <p class="author">— Janine P., Mosman</p>
-                </div>
-                <div class="testimonial">
-                    <p class="quote">"Ralph created something beyond our expectations."</p>
-                    <p class="author">— David &amp; Sarah T., Manly</p>
-                </div>
-                <div class="testimonial">
-                    <p class="quote">"The process was seamless and inspiring!"</p>
-                    <p class="author">— Alex R., Neutral Bay</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══════════════════════════════════════════ -->
+<!-- HERO                                        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Commissioned Works · Sydney, Australia</div>
 
-    <!-- Consult Process Section -->
-    <section class="consult-process">
-        <div class="container">
-            <h2 class="consult-title">A Free On-Site Consult in Your Home or Office</h2>
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="9" y1="3" x2="9" y2="21"></line>
-                            <line x1="15" y1="3" x2="15" y2="21"></line>
-                        </svg>
-                    </div>
-                    <span>Wall &amp; Space Review</span>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="13.5" cy="6.5" r="2.5"></circle>
-                            <circle cx="17.5" cy="10.5" r="2.5"></circle>
-                            <circle cx="8.5" cy="7.5" r="2.5"></circle>
-                            <circle cx="6.5" cy="12.5" r="2.5"></circle>
-                            <path d="M12 16.5l-2.5-3 2.5-2.5 2.5 2.5-2.5 3z"></path>
-                        </svg>
-                    </div>
-                    <span>Theme &amp; Palette Discussion</span>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                        </svg>
-                    </div>
-                    <span>Mockups for Your Wall</span>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <span>Clear Next Steps</span>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-                            <path d="M4 22h16"></path>
-                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
-                        </svg>
-                    </div>
-                    <span>Concept &amp; Budget</span>
-                </div>
-            </div>
-            <div class="turnaround-banner">
-                <span>21-Day Turnaround From Brief Approval</span>
-            </div>
-        </div>
-    </section>
+    <h1 class="hero-headline">
+      Own Something<br>
+      Made <em>Only</em><br>
+      for You
+    </h1>
 
-    <!-- Commission Steps Section -->
-    <section class="commission-steps">
-        <div class="container">
-            <h2>How the Commission Process Works</h2>
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="On-Site Consult">
-                        <span class="step-number">1</span>
-                    </div>
-                    <h3>On-Site Consult</h3>
-                    <div class="arrow-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80" alt="Concept & Scale">
-                        <span class="step-number">2</span>
-                    </div>
-                    <h3>Concept &amp; Scale</h3>
-                    <div class="arrow-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&q=80" alt="Custom Mockups">
-                        <span class="step-number">3</span>
-                    </div>
-                    <h3>Custom Mockups</h3>
-                    <div class="arrow-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80" alt="Creation in Studio">
-                        <span class="step-number">4</span>
-                    </div>
-                    <h3>Creation in Studio</h3>
-                    <div class="arrow-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80" alt="Delivery & Install">
-                        <span class="step-number">5</span>
-                    </div>
-                    <h3>Delivery &amp; Install</h3>
-                </div>
-            </div>
-        </div>
-    </section>
+    <p class="hero-byline">
+      with internationally renowned Australian artist, Ralph Kerle
+    </p>
 
-    <!-- Recent Installations Section -->
-    <section class="installations" id="installations">
-        <div class="container">
-            <h2>Recent Installations</h2>
-            <div class="installations-grid">
-                <div class="installation-card">
-                    <img src="installations/IMG_2394.webp" alt="Coastal Residence">
-                    <div class="installation-overlay">
-                        <p class="title">Coastal Residence</p>
-                        <p class="location">Mosman, NSW</p>
-                    </div>
-                </div>
-                <div class="installation-card">
-                    <img src="installations/IMG_2610.webp" alt="Penthouse Suite">
-                    <div class="installation-overlay">
-                        <p class="title">Penthouse Suite</p>
-                        <p class="location">Sydney CBD</p>
-                    </div>
-                </div>
-                <div class="installation-card">
-                    <img src="installations/IMG_2644.webp" alt="Beach House">
-                    <div class="installation-overlay">
-                        <p class="title">Beach House</p>
-                        <p class="location">Palm Beach</p>
-                    </div>
-                </div>
-                <div class="installation-card">
-                    <img src="installations/IMG_2653.webp" alt="Modern Villa">
-                    <div class="installation-overlay">
-                        <p class="title">Modern Villa</p>
-                        <p class="location">Vaucluse</p>
-                    </div>
-                </div>
-                <div class="installation-card">
-                    <img src="installations/IMG_2668.webp" alt="Waterfront Home">
-                    <div class="installation-overlay">
-                        <p class="title">Waterfront Home</p>
-                        <p class="location">Neutral Bay</p>
-                    </div>
-                </div>
-                <div class="installation-card">
-                    <img src="installations/IMG_2708.webp" alt="Contemporary Loft">
-                    <div class="installation-overlay">
-                        <p class="title">Contemporary Loft</p>
-                        <p class="location">Surry Hills</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <ul class="hero-meta" style="list-style:none;">
+      <li class="hero-meta-item">Bespoke large-format photography for your space</li>
+      <li class="hero-meta-item">Commissions AUD $5,000 – $25,000</li>
+      <li class="hero-meta-item">Complimentary on-site consult, Sydney-wide</li>
+      <li class="hero-meta-item">21-day turnaround from brief approval</li>
+    </ul>
 
-    <!-- Investment Section -->
-    <section class="investment">
-        <div class="container">
-            <div class="investment-content" style="text-align: center;">
-                <h2>Investment</h2>
-                <p class="lead">Commissions from AUD <strong>$5,000–$25,000</strong>.</p>
-                <p class="sub">Complimentary on-site consult Sydney-wide.</p>
-            </div>
-        </div>
-    </section>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">
+        Book a Free On-Site Consult →
+      </a>
+      <a href="#installations" class="btn-secondary">
+        View Installations
+      </a>
+    </div>
 
-    <!-- Booking Form Section -->
-    <section class="booking" id="book">
-        <div class="container">
-            <div class="booking-grid">
-                <div class="booking-content">
-                    <h2>Book Your Free On-Site Consult</h2>
-                    <p>Let's create a one-of-a-kind artwork for your space. Schedule your complimentary on-site consult below.</p>
-                </div>
-                <div class="booking-form">
-                    <form id="consultForm">
-                        <div class="form-group">
-                            <label>Select a Date &amp; Time</label>
-                            <div class="input-wrapper">
-                                <svg class="icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                </svg>
-                                <input type="datetime-local" name="date" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Your Suburb</label>
-                            <div class="select-wrapper">
-                                <svg class="icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <select name="suburb" required>
-                                    <option value="">Select your suburb</option>
-                                    <option value="mosman">Mosman</option>
-                                    <option value="manly">Manly</option>
-                                    <option value="neutral-bay">Neutral Bay</option>
-                                    <option value="vaucluse">Vaucluse</option>
-                                    <option value="palm-beach">Palm Beach</option>
-                                    <option value="surry-hills">Surry Hills</option>
-                                    <option value="bondi">Bondi</option>
-                                    <option value="double-bay">Double Bay</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <svg class="icon-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Approximate Wall Size</label>
-                            <div class="select-wrapper">
-                                <select name="wallSize">
-                                    <option value="">Select wall size</option>
-                                    <option value="small">Small (up to 1m)</option>
-                                    <option value="medium">Medium (1m – 2m)</option>
-                                    <option value="large">Large (2m – 3m)</option>
-                                    <option value="xlarge">Extra Large (3m+)</option>
-                                </select>
-                                <svg class="icon-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Budget Range</label>
-                            <div class="select-wrapper">
-                                <svg class="icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                                <select name="budget" required>
-                                    <option value="">Select budget range</option>
-                                    <option value="5-10k">$5,000 – $10,000</option>
-                                    <option value="10-15k">$10,000 – $15,000</option>
-                                    <option value="15-20k">$15,000 – $20,000</option>
-                                    <option value="20-25k">$20,000 – $25,000</option>
-                                    <option value="25k+">$25,000+</option>
-                                </select>
-                                <svg class="icon-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Preferred Theme</label>
-                            <div class="select-wrapper">
-                                <svg class="icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                </svg>
-                                <select name="theme" required>
-                                    <option value="">Select preferred theme</option>
-                                    <option value="coastal">Coastal &amp; Ocean</option>
-                                    <option value="urban">Urban Reflections</option>
-                                    <option value="aerial">Aerial &amp; Earth</option>
-                                    <option value="abstract">Abstract</option>
-                                    <option value="not-sure">Not sure yet</option>
-                                </select>
-                                <svg class="icon-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            Schedule Consultation
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </button>
-                    </form>
-                    <div id="successMessage" class="success-message" style="display: none;">
-                        <div class="success-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <h3>Thank You!</h3>
-                        <p>We've received your request and will be in touch within 24 hours.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero-trust-bar">
+      <div class="trust-item"><span>Custom Sizing</span> · For Your Wall</div>
+      <div class="trust-item"><span>One-Off</span> · Originals Only</div>
+      <div class="trust-item"><span>Sydney-Wide</span> · Consult Included</div>
+      <div class="trust-item"><span>Global</span> · Collections Held</div>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="logo.gif" alt="Ralph Kerle" class="footer-logo">
-                    <p>Internationally acclaimed photographic artist based in Sydney, creating one-off original artworks for discerning collectors.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Collections</h4>
-                    <ul>
-                        <li><a href="https://www.ralphkerlesart.com/artwork-for-sale/offshore-aerial-collection" target="_blank">OffShore Aerial</a></li>
-                        <li><a href="https://www.ralphkerlesart.com/artwork-for-sale/paintings-on-water-collection" target="_blank">Paintings On Water</a></li>
-                        <li><a href="https://www.ralphkerlesart.com/artwork-for-sale/landescapes-collection" target="_blank">LandEscapes</a></li>
-                        <li><a href="https://www.ralphkerlesart.com/the-art-of-navy-exhibition-review" target="_blank">The Art of Navy</a></li>
-                        <li><a href="https://www.ralphkerlesart.com/artwork-for-sale/sand-talk-collection" target="_blank">Sand Talk</a></li>
-                    </ul>
-                </div>
-                
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 Ralph Kerle Art. All rights reserved.</p>
-                <div class="footer-contact-line">
-                    <a href="mailto:rk@ralphkerlesart.com">rk@ralphkerlesart.com</a>
-                    <span class="contact-separator">|</span>
-                    <a href="tel:+61412559603">+61 412 559 603</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+  <div class="hero-right">
+    <div class="hero-image-placeholder" style="background: url('images/main.jpg') center/cover no-repeat;">
+    </div>
+    <div class="hero-image-label">Paintings on Water · Commission Available</div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- ═══════════════════════════════════════════ -->
+<!-- TESTIMONIALS                                -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="testimonials">
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <p class="testimonial-quote">A perfect fit for our space — the work transforms the entire room. Nothing else could have done what this piece does.</p>
+      <div class="testimonial-attribution">— Janine P., Mosman</div>
+      <div class="testimonial-context">Water series · Living room installation</div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-quote">Ralph created something completely beyond what we imagined. The process was collaborative and the result is extraordinary.</p>
+      <div class="testimonial-attribution">— David & Sarah T., Manly</div>
+      <div class="testimonial-context">Coastal aerial · Entry hall, large format</div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-quote">From the first consult to delivery, this was the most considered art purchase we've ever made. The piece is breathtaking.</p>
+      <div class="testimonial-attribution">— Alex R., Neutral Bay</div>
+      <div class="testimonial-context">LandEscapes series · Home office</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- ABOUT / CREDENTIALS                         -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="about">
+  <div class="about-left">
+    <div class="section-eyebrow">The Artist</div>
+    <h2 class="section-title">A Decade of<br>Practice. A World<br>of <em>Collectors.</em></h2>
+    <p class="section-body">
+      Ralph Kerle is one of Australia's most collected fine art photographers, with works held in private and corporate collections across more than twenty countries. His large-format abstracts — capturing light on water surfaces, coastal forms, and aerial perspectives — occupy the rare space between photography and painting.
+    </p>
+    <p class="section-body" style="margin-top:20px;">
+      Exhibitions in Berlin, Lisbon, Riga, Dubai, Palm Beach, and Vilnius. Featured in <em>Art &amp; Style Magazine.</em> Based in Sydney. Available for commissions worldwide.
+    </p>
+    <div class="about-credentials">
+      <div class="credential-item">
+        <div class="credential-number">20+</div>
+        <div class="credential-label">Countries — works held</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-number">10+</div>
+        <div class="credential-label">Years of practice</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-number">6</div>
+        <div class="credential-label">International exhibitions</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-number">5</div>
+        <div class="credential-label">Signature collections</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-image-placeholder" style="background: url('images/hero-artwork.jpg') center/cover no-repeat;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PROCESS                                     -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="process" id="process">
+  <div class="section-eyebrow">How It Works</div>
+  <h2 class="section-title">From First Conversation<br>to <em>Finished Work</em></h2>
+
+  <div class="process-steps">
+
+    <div class="process-step">
+      <div class="step-image-placeholder" style="background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80') center/cover no-repeat;">
+      </div>
+      <div class="step-number">01</div>
+      <div class="step-title">On-Site Consult</div>
+      <p class="step-desc">Ralph visits your space in person. He assesses your wall, natural light, existing palette, and how you live — at no cost and no obligation.</p>
+    </div>
+
+    <div class="process-step">
+      <div class="step-image-placeholder" style="background: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80') center/cover no-repeat;">
+      </div>
+      <div class="step-number">02</div>
+      <div class="step-title">Concept & Scale</div>
+      <p class="step-desc">A bespoke brief is developed — scale, theme, palette, and finish — translated from your taste and your space into a clear artistic direction.</p>
+    </div>
+
+    <div class="process-step">
+      <div class="step-image-placeholder" style="background: url('https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&q=80') center/cover no-repeat;">
+      </div>
+      <div class="step-number">03</div>
+      <div class="step-title">Digital Mockup</div>
+      <p class="step-desc">A custom digital rendering shows exactly how the proposed work will look on your wall — scaled, framed, in your actual room — before you commit.</p>
+    </div>
+
+    <div class="process-step">
+      <div class="step-image-placeholder" style="background: url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80') center/cover no-repeat;">
+      </div>
+      <div class="step-number">04</div>
+      <div class="step-title">Creation in Studio</div>
+      <p class="step-desc">The artwork is captured, curated, and produced in Ralph's studio to museum print standards — archival inks, fine art substrates, precision framing.</p>
+    </div>
+
+    <div class="process-step">
+      <div class="step-image-placeholder" style="background: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80') center/cover no-repeat;">
+      </div>
+      <div class="step-number">05</div>
+      <div class="step-title">Delivery & Install</div>
+      <p class="step-desc">White-glove delivery and professional installation. The work arrives ready to hang, and Ralph ensures it is placed perfectly in your space.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CONSULT INCLUDES                            -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="consult-includes" id="consult">
+  <div class="consult-left">
+    <div class="section-eyebrow">Your Free Consult Includes</div>
+    <h2 class="section-title">Everything You Need<br>to <em>Decide with Confidence</em></h2>
+    <p class="section-body">
+      There's no pressure, no obligation, and no cost. Ralph comes to you, learns your space, and provides everything required to make an informed decision — all before you commit to a single dollar.
+    </p>
+
+    <div class="consult-tiles" style="margin-top:48px;">
+      <div class="consult-tile">
+        <span class="tile-icon">⬜</span>
+        <div class="tile-title">Your Wall, Assessed in Person</div>
+        <p class="tile-desc">Scale, light, and placement reviewed on-site by Ralph himself.</p>
+      </div>
+      <div class="consult-tile">
+        <span class="tile-icon">🎨</span>
+        <div class="tile-title">Colour, Mood & Style Conversation</div>
+        <p class="tile-desc">An unhurried discussion about your taste, your space, and what moves you.</p>
+      </div>
+      <div class="consult-tile">
+        <span class="tile-icon">🖼</span>
+        <div class="tile-title">Digital Mockup in Your Room</div>
+        <p class="tile-desc">See the proposed artwork rendered on your actual wall before you decide.</p>
+      </div>
+      <div class="consult-tile">
+        <span class="tile-icon">✓</span>
+        <div class="tile-title">Full Brief & Investment Proposal</div>
+        <p class="tile-desc">A complete concept, scale, finish recommendation, and clear pricing — no hidden costs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="consult-right">
+    <div class="turnaround">
+      <div class="turnaround-number">21</div>
+      <div class="turnaround-label">Days — Brief Approval to Finished Work</div>
+    </div>
+    <p class="section-body" style="margin-top:32px; font-style: italic; font-family: var(--serif); font-size: 1.1rem; line-height: 1.7;">
+      "Every piece I create is made once, for one space, for one collector. There are no editions, no reprints. What you commission exists only for you."
+    </p>
+    <p style="font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-top: 16px;">— Ralph Kerle</p>
+
+    <div style="margin-top: 48px;">
+      <a href="#booking" class="btn-primary">Book My Free Consult →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- INSTALLATIONS                               -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="installations" id="installations">
+  <div class="section-eyebrow">In Situ</div>
+  <h2 class="section-title">Recent <em>Installations</em></h2>
+  <p class="installations-note">↓ Commissioned works installed in client spaces</p>
+
+  <div class="installations-grid">
+    <div class="install-item">
+      <img src="installations/IMG_2394.webp" alt="Coastal Residence">
+      <div class="install-overlay">
+        <p class="title">Coastal Residence</p>
+        <p class="location">Mosman, NSW</p>
+      </div>
+    </div>
+    <div class="install-item">
+      <img src="installations/IMG_2610.webp" alt="Penthouse Suite">
+      <div class="install-overlay">
+        <p class="title">Penthouse Suite</p>
+        <p class="location">Sydney CBD</p>
+      </div>
+    </div>
+    <div class="install-item">
+      <img src="installations/IMG_2644.webp" alt="Beach House">
+      <div class="install-overlay">
+        <p class="title">Beach House</p>
+        <p class="location">Palm Beach</p>
+      </div>
+    </div>
+    <div class="install-item">
+      <img src="installations/IMG_2653.webp" alt="Modern Villa">
+      <div class="install-overlay">
+        <p class="title">Modern Villa</p>
+        <p class="location">Vaucluse</p>
+      </div>
+    </div>
+    <div class="install-item">
+      <img src="installations/IMG_2668.webp" alt="Waterfront Home">
+      <div class="install-overlay">
+        <p class="title">Waterfront Home</p>
+        <p class="location">Neutral Bay</p>
+      </div>
+    </div>
+    <div class="install-item">
+      <img src="installations/IMG_2708.webp" alt="Contemporary Loft">
+      <div class="install-overlay">
+        <p class="title">Contemporary Loft</p>
+        <p class="location">Surry Hills</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- INVESTMENT                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="investment" id="investment">
+  <div class="section-eyebrow" style="justify-content:center;"><span></span>Investment</div>
+  <h2 class="section-title">What a Commission Costs</h2>
+
+  <div class="investment-range">AUD $5,000 – $25,000</div>
+  <div class="investment-sub">Complimentary on-site consult · Sydney-wide · No obligation</div>
+
+  <p class="investment-explainer">
+    Scale, complexity, and finishing method — framed archival print, aluminium face-mount, or canvas — determine the final investment. Your on-site consult includes a complete proposal and clear pricing before you commit to anything.
+  </p>
+
+  <div class="investment-cta">
+    <a href="#booking" class="btn-primary" style="font-size: 0.7rem; padding: 20px 40px;">Begin Your Commission →</a>
+    <p style="font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--white-dim); margin-top: 8px;">No deposit required to book your consult</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- BOOKING FORM                                -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="section-eyebrow">Begin</div>
+    <h2 class="section-title">Request Your<br><em>Free On-Site Consult</em></h2>
+    <p class="section-body">
+      Ralph will visit your space, assess your wall, and present a concept — at no cost and no obligation. Sydney-wide. Simply tell him a little about what you have in mind.
+    </p>
+
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Select a Date & Time</label>
+        <input type="text" placeholder="dd/mm/yyyy · preferred time" />
+      </div>
+      <div class="form-field">
+        <label>Your Suburb</label>
+        <select>
+          <option value="" disabled selected>Select your suburb</option>
+          <option>Mosman</option>
+          <option>Manly</option>
+          <option>Neutral Bay</option>
+          <option>Palm Beach</option>
+          <option>Balmoral</option>
+          <option>CBD / City</option>
+          <option>Eastern Suburbs</option>
+          <option>North Shore</option>
+          <option>Northern Beaches</option>
+          <option>Inner West</option>
+          <option>Other Sydney</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Approximate Wall Size</label>
+        <select>
+          <option value="" disabled selected>Select wall size</option>
+          <option>Small — up to 80cm</option>
+          <option>Medium — 80cm to 150cm</option>
+          <option>Large — 150cm to 250cm</option>
+          <option>Statement — 250cm+</option>
+          <option>Not sure — Ralph will advise</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Budget Range</label>
+        <select>
+          <option value="" disabled selected>Select budget range</option>
+          <option>$5,000 – $8,000</option>
+          <option>$8,000 – $12,000</option>
+          <option>$12,000 – $18,000</option>
+          <option>$18,000 – $25,000</option>
+          <option>Flexible — advise at consult</option>
+        </select>
+      </div>
+      <div class="form-field form-full">
+        <label>Preferred Theme or Collection</label>
+        <select>
+          <option value="" disabled selected>Select preferred theme</option>
+          <option>OffShore Aerial — coastal from above</option>
+          <option>Paintings on Water — light on surface</option>
+          <option>LandEscapes — earth and horizon</option>
+          <option>The Art of Navy — deep water tones</option>
+          <option>Sand Talk — shore and tide</option>
+          <option>Open to Ralph's recommendation</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn-form">
+      Request My Free Consult →
+    </button>
+
+    <p class="form-assurance">No deposit required · Ralph will confirm within 24 hours · Sydney-wide service</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FOOTER                                      -->
+<!-- ═══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="logo.gif" alt="Ralph Kerle" class="footer-logo-img">
+      <p class="footer-tagline">Internationally acclaimed photographic artist based in Sydney, creating one-off original artworks for discerning collectors.</p>
+    </div>
+    <div class="footer-collections">
+      <div class="footer-col-label">Collections</div>
+      <div class="footer-col-links">
+        <a href="https://www.ralphkerlesart.com/artwork-for-sale/offshore-aerial-collection" target="_blank">OffShore Aerial</a>
+        <a href="https://www.ralphkerlesart.com/artwork-for-sale/paintings-on-water-collection" target="_blank">Paintings On Water</a>
+        <a href="https://www.ralphkerlesart.com/artwork-for-sale/landescapes-collection" target="_blank">LandEscapes</a>
+        <a href="https://www.ralphkerlesart.com/the-art-of-navy-exhibition-review" target="_blank">The Art of Navy</a>
+        <a href="https://www.ralphkerlesart.com/artwork-for-sale/sand-talk-collection" target="_blank">Sand Talk</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Ralph Kerle Art. All rights reserved.</div>
+    <div class="footer-contact-line">
+      <a href="mailto:rk@ralphkerlesart.com">rk@ralphkerlesart.com</a>
+      <span class="contact-separator">|</span>
+      <a href="tel:+61412559603">+61 412 559 603</a>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
