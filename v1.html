@@ -1172,6 +1172,10 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
+    section {
+      padding: 80px 24px;
+    }
+    
     .hero-main {
       grid-template-columns: 1fr;
       min-height: auto;
@@ -1244,6 +1248,139 @@
       gap: 16px;
       text-align: center;
       padding: 32px 24px;
+      margin-top: 48px;
+    }
+    
+    /* About section - stack on mobile */
+    .about {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    
+    .about-right {
+      order: -1;
+    }
+    
+    .about-image-placeholder {
+      aspect-ratio: 4/3;
+    }
+    
+    .about-credentials {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    /* Process steps - 2 columns on mobile */
+    .process-steps {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .process-step {
+      padding: 24px 16px;
+    }
+    
+    /* Testimonials - stack on mobile */
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    .testimonial {
+      padding: 32px 24px;
+    }
+    
+    /* Consult includes - stack on mobile */
+    .consult-includes {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    
+    .consult-tiles {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .consult-tile {
+      padding: 20px 16px;
+    }
+    
+    /* Installations - always show overlay on mobile */
+    .installations-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    
+    .install-item {
+      aspect-ratio: 1/1;
+    }
+    
+    .install-overlay {
+      opacity: 1;
+      transform: translateY(0);
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
+      padding: 16px;
+    }
+    
+    .install-overlay .title {
+      font-size: 0.95rem;
+    }
+    
+    .install-overlay .location {
+      font-size: 0.55rem;
+    }
+    
+    /* Investment section */
+    .investment-explainer {
+      padding: 0 16px;
+    }
+    
+    /* Form grid - stack on mobile */
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    /* Footer */
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+    
+    .footer-col-links {
+      gap: 12px 24px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* Process steps - 1 column on small mobile */
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
+    
+    /* Installations - 1 column on small mobile */
+    .installations-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .install-item {
+      aspect-ratio: 4/3;
+    }
+    
+    /* Consult tiles - 1 column on small mobile */
+    .consult-tiles {
+      grid-template-columns: 1fr;
+    }
+    
+    /* About credentials - 1 column on small mobile */
+    .about-credentials {
+      grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
     }
   }
 </style>
