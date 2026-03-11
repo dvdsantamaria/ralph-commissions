@@ -1283,6 +1283,19 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
+    nav {
+      padding: 16px 20px;
+    }
+    
+    .nav-logo {
+      height: 36px;
+    }
+    
+    .nav-btn {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+    }
+    
     section {
       padding: 80px 24px;
     }
@@ -1466,6 +1479,55 @@
     
     .footer-col-links {
       gap: 12px 24px;
+    }
+  }
+  
+  @media (max-width: 1024px) and (min-width: 769px) {
+    /* Tablet styles - fix nav and bio */
+    nav {
+      padding: 16px 24px;
+    }
+    
+    .nav-logo {
+      height: 40px;
+    }
+    
+    .nav-btn {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+    }
+    
+    .about {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    
+    .about-left {
+      gap: 24px;
+    }
+    
+    .about-image-placeholder {
+      min-height: 400px;
+    }
+    
+    .about-credentials {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .hero-main {
+      padding: 40px 40px 60px;
+    }
+    
+    .process-steps {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    .installations-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    .consult-tiles {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   
