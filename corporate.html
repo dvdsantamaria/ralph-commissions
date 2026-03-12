@@ -2002,10 +2002,9 @@ document.getElementById('consultForm').addEventListener('submit', function(e) {
   const wallSize = encodeURIComponent(formData.get('wall_size') || '');
   const budget = encodeURIComponent(formData.get('budget') || '');
   const theme = encodeURIComponent(formData.get('theme') || '');
-  const source = encodeURIComponent(formData.get('source') || '');
   
   // Build Calendly URL with prefill
-  const calendlyUrl = `https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68&name=${name}&email=${email}&a1=${suburb}&a2=${wallSize}&a3=${budget}&a4=${theme}&a5=${source}`;
+  const calendlyUrl = `https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68&name=${name}&email=${email}&a1=${suburb}&a2=${wallSize}&a3=${budget}&a4=${theme}`;
   
   // Send form data to Formspark via AJAX
   fetch(this.action, {
