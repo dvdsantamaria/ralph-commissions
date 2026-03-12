@@ -1891,6 +1891,14 @@
       <input type="hidden" name="source" value="corporate" />
       <div class="form-grid">
         <div class="form-field">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="Full name" required />
+        </div>
+        <div class="form-field">
+          <label>Your Email</label>
+          <input type="email" name="email" placeholder="email@example.com" required />
+        </div>
+        <div class="form-field">
           <label>Your Suburb</label>
           <select name="suburb" required>
             <option value="" disabled selected>Select your suburb</option>
@@ -1986,17 +1994,30 @@
 document.getElementById('consultForm').addEventListener('submit', function(e) {
   e.preventDefault();
   
+  // Get form values
+  const formData = new FormData(this);
+  const name = encodeURIComponent(formData.get('name') || '');
+  const email = encodeURIComponent(formData.get('email') || '');
+  const suburb = encodeURIComponent(formData.get('suburb') || '');
+  const wallSize = encodeURIComponent(formData.get('wall_size') || '');
+  const budget = encodeURIComponent(formData.get('budget') || '');
+  const theme = encodeURIComponent(formData.get('theme') || '');
+  const source = encodeURIComponent(formData.get('source') || '');
+  
+  // Build Calendly URL with prefill
+  const calendlyUrl = `https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68&name=${name}&email=${email}&a1=${suburb}&a2=${wallSize}&a3=${budget}&a4=${theme}&a5=${source}`;
+  
   // Send form data to Formspark via AJAX
   fetch(this.action, {
     method: 'POST',
-    body: new FormData(this),
+    body: formData,
     headers: { 'Accept': 'application/json' }
   }).then(function() {
-    // Open Calendly popup
-    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68'});
+    // Open Calendly popup with prefill
+    Calendly.initPopupWidget({url: calendlyUrl});
   }).catch(function() {
     // Even if Formspark fails, still open Calendly
-    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68'});
+    Calendly.initPopupWidget({url: calendlyUrl});
   });
 });
 </script>
