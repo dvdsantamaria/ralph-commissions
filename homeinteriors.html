@@ -1561,6 +1561,9 @@
     }
   }
 </style>
+<!-- Calendly -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -1940,7 +1943,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn-form">
+      <button type="button" class="btn-form" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/30min'}); return false;">
         Request My Free Consult →
       </button>
     </form>
