@@ -1376,7 +1376,13 @@
       padding: 24px 16px;
     }
     
-    /* Testimonials - stack on mobile */
+    
+
+    /* Fix (iPad): make last item span full width so no empty yellow cell */
+    .process-step:last-child {
+      grid-column: 1 / -1;
+    }
+/* Testimonials - stack on mobile */
     .testimonials-grid {
       grid-template-columns: 1fr;
       gap: 24px;
@@ -1519,7 +1525,8 @@
     }
     
     .process-steps {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      background: var(--near-black) !important;
     }
     
     .installations-grid {
