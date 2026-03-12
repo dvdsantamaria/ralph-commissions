@@ -1993,10 +1993,10 @@ document.getElementById('consultForm').addEventListener('submit', function(e) {
     headers: { 'Accept': 'application/json' }
   }).then(function() {
     // Open Calendly popup
-    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult'});
+    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68'});
   }).catch(function() {
     // Even if Formspark fails, still open Calendly
-    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult'});
+    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult?background_color=000000&text_color=ffffff&primary_color=e1ce68'});
   });
 });
 </script>
