@@ -1886,7 +1886,7 @@
       Ralph will visit your space, assess your wall, and present a concept — at no cost and no obligation. Sydney-wide. Simply tell him a little about what you have in mind.
     </p>
 
-    <form action="https://submit-form.com/vRsd92fxJ" method="POST" onsubmit="Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult'}); return true;">
+    <form id="consultForm" action="https://submit-form.com/vRsd92fxJ" method="POST">
       <input type="hidden" name="_redirect" value="https://commisions.ralphkerlesart.com/corporate?submitted=true" />
       <input type="hidden" name="source" value="corporate" />
       <div class="form-grid">
@@ -1981,6 +1981,25 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.getElementById('consultForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Send form data to Formspark via AJAX
+  fetch(this.action, {
+    method: 'POST',
+    body: new FormData(this),
+    headers: { 'Accept': 'application/json' }
+  }).then(function() {
+    // Open Calendly popup
+    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult'});
+  }).catch(function() {
+    // Even if Formspark fails, still open Calendly
+    Calendly.initPopupWidget({url: 'https://calendly.com/rk-ralphkerlesart/on-site-consult'});
+  });
+});
+</script>
 
 </body>
 </html>
