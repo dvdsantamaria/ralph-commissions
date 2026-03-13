@@ -43,3 +43,6 @@ build/
 .env
 .env.local
 .env.*.local
+
+# Documentation / Plans
+AI_SEO_OPTIMIZATION_PLAN.md
